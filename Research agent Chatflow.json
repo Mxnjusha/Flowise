@@ -1,0 +1,570 @@
+{
+  "nodes": [
+    {
+      "id": "toolAgent_0",
+      "position": {
+        "x": 910.2009873160766,
+        "y": 141.76771799125223
+      },
+      "type": "customNode",
+      "data": {
+        "id": "toolAgent_0",
+        "label": "Tool Agent",
+        "version": 2,
+        "name": "toolAgent",
+        "type": "AgentExecutor",
+        "baseClasses": [
+          "AgentExecutor",
+          "BaseChain",
+          "Runnable"
+        ],
+        "category": "Agents",
+        "description": "Agent that uses Function Calling to pick the tools and args to call",
+        "inputParams": [
+          {
+            "label": "System Message",
+            "name": "systemMessage",
+            "type": "string",
+            "default": "You are a helpful AI assistant.",
+            "description": "If Chat Prompt Template is provided, this will be ignored",
+            "rows": 4,
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-systemMessage-string",
+            "display": true
+          },
+          {
+            "label": "Max Iterations",
+            "name": "maxIterations",
+            "type": "number",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-maxIterations-number",
+            "display": true
+          },
+          {
+            "label": "Enable Detailed Streaming",
+            "name": "enableDetailedStreaming",
+            "type": "boolean",
+            "default": false,
+            "description": "Stream detailed intermediate steps during agent execution",
+            "optional": true,
+            "additionalParams": true,
+            "id": "toolAgent_0-input-enableDetailedStreaming-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Tools",
+            "name": "tools",
+            "type": "Tool",
+            "list": true,
+            "id": "toolAgent_0-input-tools-Tool",
+            "display": true
+          },
+          {
+            "label": "Memory",
+            "name": "memory",
+            "type": "BaseChatMemory",
+            "id": "toolAgent_0-input-memory-BaseChatMemory",
+            "display": true
+          },
+          {
+            "label": "Tool Calling Chat Model",
+            "name": "model",
+            "type": "BaseChatModel",
+            "description": "Only compatible with models that are capable of function calling: ChatOpenAI, ChatMistral, ChatAnthropic, ChatGoogleGenerativeAI, ChatVertexAI, GroqChat",
+            "id": "toolAgent_0-input-model-BaseChatModel",
+            "display": true
+          },
+          {
+            "label": "Chat Prompt Template",
+            "name": "chatPromptTemplate",
+            "type": "ChatPromptTemplate",
+            "description": "Override existing prompt with Chat Prompt Template. Human Message must includes {input} variable",
+            "optional": true,
+            "id": "toolAgent_0-input-chatPromptTemplate-ChatPromptTemplate",
+            "display": true
+          },
+          {
+            "label": "Input Moderation",
+            "description": "Detect text that could generate harmful output and prevent it from being sent to the language model",
+            "name": "inputModeration",
+            "type": "Moderation",
+            "optional": true,
+            "list": true,
+            "id": "toolAgent_0-input-inputModeration-Moderation",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "tools": [
+            "{{calculator_0.data.instance}}",
+            "{{customTool_0.data.instance}}",
+            "{{serpAPI_0.data.instance}}"
+          ],
+          "memory": "{{bufferWindowMemory_0.data.instance}}",
+          "model": "{{groqChat_0.data.instance}}",
+          "chatPromptTemplate": "",
+          "systemMessage": "You are a helpful AI assistant.",
+          "inputModeration": "",
+          "maxIterations": "",
+          "enableDetailedStreaming": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "toolAgent_0-output-toolAgent-AgentExecutor|BaseChain|Runnable",
+            "name": "toolAgent",
+            "label": "AgentExecutor",
+            "description": "Agent that uses Function Calling to pick the tools and args to call",
+            "type": "AgentExecutor | BaseChain | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 492,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 910.2009873160766,
+        "y": 141.76771799125223
+      },
+      "dragging": false
+    },
+    {
+      "id": "groqChat_0",
+      "position": {
+        "x": 511.29742415545695,
+        "y": 247.2946172579114
+      },
+      "type": "customNode",
+      "data": {
+        "id": "groqChat_0",
+        "label": "GroqChat",
+        "version": 4,
+        "name": "groqChat",
+        "type": "GroqChat",
+        "baseClasses": [
+          "GroqChat",
+          "BaseChatModel",
+          "BaseLanguageModel",
+          "Runnable"
+        ],
+        "category": "Chat Models",
+        "description": "Wrapper around Groq API with LPU Inference Engine",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "groqApi"
+            ],
+            "optional": true,
+            "id": "groqChat_0-input-credential-credential",
+            "display": true
+          },
+          {
+            "label": "Model Name",
+            "name": "modelName",
+            "type": "asyncOptions",
+            "loadMethod": "listModels",
+            "placeholder": "llama3-70b-8192",
+            "id": "groqChat_0-input-modelName-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Temperature",
+            "name": "temperature",
+            "type": "number",
+            "step": 0.1,
+            "default": 0.9,
+            "optional": true,
+            "id": "groqChat_0-input-temperature-number",
+            "display": true
+          },
+          {
+            "label": "Max Tokens",
+            "name": "maxTokens",
+            "type": "number",
+            "step": 1,
+            "optional": true,
+            "additionalParams": true,
+            "id": "groqChat_0-input-maxTokens-number",
+            "display": true
+          },
+          {
+            "label": "Streaming",
+            "name": "streaming",
+            "type": "boolean",
+            "default": true,
+            "optional": true,
+            "id": "groqChat_0-input-streaming-boolean",
+            "display": true
+          }
+        ],
+        "inputAnchors": [
+          {
+            "label": "Cache",
+            "name": "cache",
+            "type": "BaseCache",
+            "optional": true,
+            "id": "groqChat_0-input-cache-BaseCache",
+            "display": true
+          }
+        ],
+        "inputs": {
+          "cache": "",
+          "modelName": "llama-3.3-70b-versatile",
+          "temperature": "0.6",
+          "maxTokens": "",
+          "streaming": true
+        },
+        "outputAnchors": [
+          {
+            "id": "groqChat_0-output-groqChat-GroqChat|BaseChatModel|BaseLanguageModel|Runnable",
+            "name": "groqChat",
+            "label": "GroqChat",
+            "description": "Wrapper around Groq API with LPU Inference Engine",
+            "type": "GroqChat | BaseChatModel | BaseLanguageModel | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 676,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 511.29742415545695,
+        "y": 247.2946172579114
+      },
+      "dragging": false
+    },
+    {
+      "id": "bufferWindowMemory_0",
+      "position": {
+        "x": 523.4681660219494,
+        "y": -114.6542128826061
+      },
+      "type": "customNode",
+      "data": {
+        "id": "bufferWindowMemory_0",
+        "label": "Buffer Window Memory",
+        "version": 2,
+        "name": "bufferWindowMemory",
+        "type": "BufferWindowMemory",
+        "baseClasses": [
+          "BufferWindowMemory",
+          "BaseChatMemory",
+          "BaseMemory"
+        ],
+        "category": "Memory",
+        "description": "Uses a window of size k to surface the last k back-and-forth to use as memory",
+        "inputParams": [
+          {
+            "label": "Size",
+            "name": "k",
+            "type": "number",
+            "default": "4",
+            "description": "Window of size k to surface the last k back-and-forth to use as memory.",
+            "id": "bufferWindowMemory_0-input-k-number",
+            "display": true
+          },
+          {
+            "label": "Session Id",
+            "name": "sessionId",
+            "type": "string",
+            "description": "If not specified, a random id will be used. Learn <a target=\"_blank\" href=\"https://docs.flowiseai.com/memory#ui-and-embedded-chat\">more</a>",
+            "default": "",
+            "optional": true,
+            "additionalParams": true,
+            "id": "bufferWindowMemory_0-input-sessionId-string",
+            "display": true
+          },
+          {
+            "label": "Memory Key",
+            "name": "memoryKey",
+            "type": "string",
+            "default": "chat_history",
+            "additionalParams": true,
+            "id": "bufferWindowMemory_0-input-memoryKey-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "k": "10",
+          "sessionId": "",
+          "memoryKey": "chat_history"
+        },
+        "outputAnchors": [
+          {
+            "id": "bufferWindowMemory_0-output-bufferWindowMemory-BufferWindowMemory|BaseChatMemory|BaseMemory",
+            "name": "bufferWindowMemory",
+            "label": "BufferWindowMemory",
+            "description": "Uses a window of size k to surface the last k back-and-forth to use as memory",
+            "type": "BufferWindowMemory | BaseChatMemory | BaseMemory"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 337,
+      "selected": false,
+      "dragging": false,
+      "positionAbsolute": {
+        "x": 523.4681660219494,
+        "y": -114.6542128826061
+      }
+    },
+    {
+      "id": "calculator_0",
+      "position": {
+        "x": 159.22170493608849,
+        "y": 243.8827773313517
+      },
+      "type": "customNode",
+      "data": {
+        "id": "calculator_0",
+        "label": "Calculator",
+        "version": 1,
+        "name": "calculator",
+        "type": "Calculator",
+        "baseClasses": [
+          "Calculator",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Perform calculations on response",
+        "inputParams": [],
+        "inputAnchors": [],
+        "inputs": {},
+        "outputAnchors": [
+          {
+            "id": "calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable",
+            "name": "calculator",
+            "label": "Calculator",
+            "description": "Perform calculations on response",
+            "type": "Calculator | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 149,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 159.22170493608849,
+        "y": 243.8827773313517
+      },
+      "dragging": false
+    },
+    {
+      "id": "customTool_0",
+      "position": {
+        "x": 169.05433779204918,
+        "y": 429.348385993417
+      },
+      "type": "customNode",
+      "data": {
+        "id": "customTool_0",
+        "label": "Custom Tool",
+        "version": 3,
+        "name": "customTool",
+        "type": "CustomTool",
+        "baseClasses": [
+          "CustomTool",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Use custom tool you've created in Flowise within chatflow",
+        "inputParams": [
+          {
+            "label": "Select Tool",
+            "name": "selectedTool",
+            "type": "asyncOptions",
+            "loadMethod": "listTools",
+            "id": "customTool_0-input-selectedTool-asyncOptions",
+            "display": true
+          },
+          {
+            "label": "Return Direct",
+            "name": "returnDirect",
+            "description": "Return the output of the tool directly to the user",
+            "type": "boolean",
+            "optional": true,
+            "id": "customTool_0-input-returnDirect-boolean",
+            "display": true
+          },
+          {
+            "label": "Custom Tool Name",
+            "name": "customToolName",
+            "type": "string",
+            "hidden": true,
+            "id": "customTool_0-input-customToolName-string",
+            "display": true
+          },
+          {
+            "label": "Custom Tool Description",
+            "name": "customToolDesc",
+            "type": "string",
+            "hidden": true,
+            "id": "customTool_0-input-customToolDesc-string",
+            "display": true
+          },
+          {
+            "label": "Custom Tool Schema",
+            "name": "customToolSchema",
+            "type": "string",
+            "hidden": true,
+            "id": "customTool_0-input-customToolSchema-string",
+            "display": true
+          },
+          {
+            "label": "Custom Tool Func",
+            "name": "customToolFunc",
+            "type": "string",
+            "hidden": true,
+            "id": "customTool_0-input-customToolFunc-string",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {
+          "selectedTool": "809c6aa6-a27f-4616-9bc2-ff4e0514b53f",
+          "returnDirect": "",
+          "customToolName": "",
+          "customToolDesc": "",
+          "customToolSchema": "",
+          "customToolFunc": ""
+        },
+        "outputAnchors": [
+          {
+            "id": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+            "name": "customTool",
+            "label": "CustomTool",
+            "description": "Use custom tool you've created in Flowise within chatflow",
+            "type": "CustomTool | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 379,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 169.05433779204918,
+        "y": 429.348385993417
+      },
+      "dragging": false
+    },
+    {
+      "id": "serpAPI_0",
+      "position": {
+        "x": 162.17636361641925,
+        "y": -62.42676756412344
+      },
+      "type": "customNode",
+      "data": {
+        "id": "serpAPI_0",
+        "label": "Serp API",
+        "version": 1,
+        "name": "serpAPI",
+        "type": "SerpAPI",
+        "baseClasses": [
+          "SerpAPI",
+          "Tool",
+          "StructuredTool",
+          "Runnable"
+        ],
+        "category": "Tools",
+        "description": "Wrapper around SerpAPI - a real-time API to access Google search results",
+        "inputParams": [
+          {
+            "label": "Connect Credential",
+            "name": "credential",
+            "type": "credential",
+            "credentialNames": [
+              "serpApi"
+            ],
+            "id": "serpAPI_0-input-credential-credential",
+            "display": true
+          }
+        ],
+        "inputAnchors": [],
+        "inputs": {},
+        "outputAnchors": [
+          {
+            "id": "serpAPI_0-output-serpAPI-SerpAPI|Tool|StructuredTool|Runnable",
+            "name": "serpAPI",
+            "label": "SerpAPI",
+            "description": "Wrapper around SerpAPI - a real-time API to access Google search results",
+            "type": "SerpAPI | Tool | StructuredTool | Runnable"
+          }
+        ],
+        "outputs": {},
+        "selected": false
+      },
+      "width": 300,
+      "height": 282,
+      "selected": false,
+      "positionAbsolute": {
+        "x": 162.17636361641925,
+        "y": -62.42676756412344
+      },
+      "dragging": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "groqChat_0",
+      "sourceHandle": "groqChat_0-output-groqChat-GroqChat|BaseChatModel|BaseLanguageModel|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-model-BaseChatModel",
+      "type": "buttonedge",
+      "id": "groqChat_0-groqChat_0-output-groqChat-GroqChat|BaseChatModel|BaseLanguageModel|Runnable-toolAgent_0-toolAgent_0-input-model-BaseChatModel"
+    },
+    {
+      "source": "bufferWindowMemory_0",
+      "sourceHandle": "bufferWindowMemory_0-output-bufferWindowMemory-BufferWindowMemory|BaseChatMemory|BaseMemory",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-memory-BaseChatMemory",
+      "type": "buttonedge",
+      "id": "bufferWindowMemory_0-bufferWindowMemory_0-output-bufferWindowMemory-BufferWindowMemory|BaseChatMemory|BaseMemory-toolAgent_0-toolAgent_0-input-memory-BaseChatMemory"
+    },
+    {
+      "source": "calculator_0",
+      "sourceHandle": "calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "calculator_0-calculator_0-output-calculator-Calculator|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "customTool_0",
+      "sourceHandle": "customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "customTool_0-customTool_0-output-customTool-CustomTool|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    },
+    {
+      "source": "serpAPI_0",
+      "sourceHandle": "serpAPI_0-output-serpAPI-SerpAPI|Tool|StructuredTool|Runnable",
+      "target": "toolAgent_0",
+      "targetHandle": "toolAgent_0-input-tools-Tool",
+      "type": "buttonedge",
+      "id": "serpAPI_0-serpAPI_0-output-serpAPI-SerpAPI|Tool|StructuredTool|Runnable-toolAgent_0-toolAgent_0-input-tools-Tool"
+    }
+  ]
+}
